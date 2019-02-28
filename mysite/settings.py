@@ -25,7 +25,7 @@ SECRET_KEY = '2wrg3@9hc8q+7q2en&%$aiga#%v2r#&^dmi@g_z*xm%p+n#pw('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'blog',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -77,9 +77,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dj_heroku',
+        'USER': 'postgres',
+        'PASSWORD': 'gary0219',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -126,3 +129,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = '/'
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
